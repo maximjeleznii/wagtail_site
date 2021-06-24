@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags static %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <nav class="navbar navbar-expand-lg" id="primary-menu">
+            <div class="container">
+                <a class="logo navbar-brand" href="/">
+                    <img class="logo" src="{% static 'assets/images/logo/logo-light.jpg' %}" alt="Logo" />
+                </a>
+                <div>
+                    <div class="module-container">
+                        <div class="module module-cta">
+                            <a class="btn btn-color1 hover" href="javascript:void(0)" data-toggle="modal" data-target="#contactUsModal">
+                                <span>contact us <i class="btn-arr-icon bi bi-arrow-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <div class="container bg-white">
+            <div class="mx-5">
+                <section>
+                    <div class="py-5 title">
+                        <h1>{{ page.title }}</h1>
+                        <hr style="width:30%; margin-left: 0px; margin-right: auto; border: 2px solid; color: lightskyblue;">
+                        <h6 class="meta">{{ page.date }}</h6>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-1 d-none d-lg-flex">
+                            <ul class="side-list py-5">
+                                <li> <a class="btn btn-facebook btn-circle hover my-2" href="{{ facebook_link }}"><i class="bi bi-facebook"></i></a></li>
+                                    <li> <a class="btn btn-twitter btn-circle hover my-2" href="{{ twitter_link }}"><i class="bi bi-twitter"></i></a></li>
+                                    <li> <a class="btn btn-linkedin btn-circle hover my-2" href="{{ linkedin_link }}"><i class="bi bi-linkedin"></i></a></li>
+                                    <li> <a class="btn btn-email btn-circle hover my-2" href="{{ email_link }}"><i class="bi bi-envelope"></i></a></li>
+                                    <li> <a class="btn btn-instagram btn-circle hover my-2" href="{{ instagram_link }}"><i class="bi bi-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="col px-lg-5 px-0 blog-body">
+                            {{ page.intro }}
+                            {{ page.body|richtext }}
+                        </div>
+                        <div class="col-1 d-none d-lg-flex"></div>
+                    </div>
+                </section>
+                
+                <section class="pb-5" id="comments">
+                    {% if user.is_superuser %}
+                        <div class="col text-right">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input 
+                                type="hidden"
+                                name="{{ togglecommentform.toggled_page.name }}" 
+                                id="id_{{ togglecommentform.toggled_page.name }}" 
+                                value="{{ togglecommentform.toggled_page.value|default:page.id }}"
+                                >
+                                <input class="btn btn-color1 hover" type="submit" name="comment_toggle" value="Toggle Comments">
+                            </form>
+                        </div>
+                    {% endif %}
+                    {% if page.comment_toggle %}
+                        <div class="row my-5">
+                            <div class="col-2 d-lg-flex d-none"></div>
+                            <div class="col">
+                                <p class="blog-body">There {% if commNum is not 1 %}are {{ commNum }} thoughts{% else %} is {{ commNum }} thought{% endif %} on this post.</p >
+                                {% for comment in comments %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-1 col-3 mr-xl-1 mr-lg-3 mr-md-5 mr-1">
+                                                <img src="{% static 'assets/images/testimonials/avatar-1.png' %}" style="width: 75px; height: 75px">
+                                            </div>
+                                            <div class="col ml-4">
+                                                <h5 class="comment-name"> {{ comment.name }}</h5>
+                                                <hr style="width:30%; margin-left: 0px; margin-right: auto; border: 2px solid; color: lightskyblue; margin: 8px 0 8px 0;" >
+                                                <h6 class="comment-email">{{ comment.email }}</h6>
+                                            </div>
+                                            {% if user.is_superuser %}
+                                            <div class="col text-right">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    <input 
+                                                    type="hidden"
+                                                    name="{{ delcommentform.comment_id.name }}" 
+                                                    id="id_{{ delcommentform.comment_id.name }}" 
+                                                    value="{{ delcommentform.comment_id.value|default:comment.id }}"
+                                                    >
+                                                    <input class="btn btn-danger btn-circle hover" type="submit" name="comment_delete" value="X">
+                                                </form>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row mt-5 ml-1">
+                                            <div class="col my-2">
+                                                <p class="comment-comment">{{ comment.comment }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div class="row text-center">
+                                    <div class="col">
+                                        {% if not minPage %}
+                                            <a class="btn btn-color1 hover" href="{{ prevpage }}"></a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+                                        {% if not maxPage %}
+                                            <a class="btn btn-color1 hover" href="{{ nextpage }}"></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-lg-flex d-nonee"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 d-lg-flex d-none"></div>
+                            <div class="col">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        {{ commentform.non_field_errors }}
+                                        <div class="form-group col-12">
+                                            {{ commentform.comment.errors }}
+                                            <label>Comment:</label>
+                                            <textarea 
+                                                class="form-control" 
+                                                type="{{ commentform.comment.field.widget.input_type }}" 
+                                                name="{{ commentform.comment.name }}" 
+                                                id="id_{{ commentform.comment.name }}" 
+                                                value="{{ commentform.comment.value|default:'' }}"
+                                                placeholder="We'd love to hear from you!"
+                                                ></textarea>
+                                        </div>
+                                        <div class="form-group col-xl-4 col-lg-6 col-12">
+                                            {{ commentform.name.errors }}
+                                            <label>Name:</label>
+                                            <input 
+                                                class="form-control" 
+                                                type="{{ commentform.name.field.widget.input_type }}" 
+                                                name="{{ commentform.name.name }}" 
+                                                id="id_{{ commentform.name.name }}" 
+                                                value="{{ commentform.name.value|default:'' }}"
+                                                placeholder="Name"
+                                                >
+                                            </input>
+                                        </div>
+                                        <div class="form-group col-xl-4 col-lg-6 col-12">
+                                            {{ commentform.email.errors }}
+                                            <label>Email:</label>
+                                            <input 
+                                                class="form-control" 
+                                                type="email" 
+                                                name="{{ commentform.email.name }}" 
+                                                id="id_{{ commentform.email.name }}" 
+                                                value="{{ commentform.email.value|default:'' }}"
+                                                placeholder="ex@mple.com"
+                                                >
+                                            </input>
+                                        </div>
+                                        <div class="col-xl-4 col-12 align-self-center text-center">
+                                            <input class="btn btn-color1 hover" type="submit" name="comment_submit" value="Submit">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-2 d-lg-flex d-none"></div>
+                        </div>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags static %}
+
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+    <header class="header header-transparent">
+        <nav class="navbar navbar-expand-lg" id="primary-menu">
+            <div class="container">
+                <a class="logo navbar-brand" href="/">
+                    <img class="logo" src="{% static 'assets/images/logo/logo-light.jpg' %}" alt="Logo" />
+                </a>
+                <div>
+                    <div class="module-container">
+                        <div class="module module-cta">
+                            <a class="btn btn-color1 hover" href="javascript:void(0)" data-toggle="modal" data-target="#contactUsModal">
+                                <span>contact us <i class="btn-arr-icon bi bi-arrow-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="bg-section"><img src="{% static 'assets/images/background/bg-gradient-3.svg' %}" alt="background" /></div>
+            <div class="container">
+                <div class="hero-cotainer text-center text-lg-left">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="hero-content">
+                                <div class="hero-headline">{{ page.hero_headline }}</div>
+                                <div class="hero-bio">{{ page.hero_text }}</div>
+                                <div class="hero-action"><a class="btn btn-color1 btn--rounded hover mx-auto" href="javascript:void(0)" data-toggle="modal" data-target="#contactUsModal"><span>{{ page.hero_button }}<i class="btn-arr-icon bi bi-arrow-right"></i></span></a></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="hero--img"><img class="img-fluid" src="{% static 'assets/images/illustration/illustration-1.png' %}" alt="illustration vector" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="pricing-container">
+                <div class="row">
+                    {% for post in page.get_children %}
+                        <div class="col-12 col-md-6 col-lg-4 price-table">
+                            <div class="pricing-panel text-center mb-5">
+                                <div class="pricing-img">{% image post.specific.feed_image original class="feed-image" %}</div>
+                                <div class="pricing-body m-4">
+                                    <h5 class="pricing-heading">{{ post.title }}</h5>
+                                    <p class="pricing-desc">{{ post.specific.intro }}</p>
+                                </div>
+                                <div class="point1">
+                                    <a class="btn btn-color1 btn-circle hover pricing-btn" href="{{ post.get_url }}"><i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

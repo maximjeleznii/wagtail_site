@@ -1,0 +1,486 @@
+{% load static wagtailuserbar %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {{ page.title }}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
+
+        {% block extra_css %}
+        <link href="{% static 'assets/images/favicon/favicon.png' %}" rel="icon"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&amp;display=swap" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{% static 'boot/icons/font/bootstrap-icons.css' %}">
+        <link href="{% static 'assets/css/vendor.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+        {% endblock %}
+
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MDF43VH');
+        </script>
+
+        <style type="text/css">
+            .hover {
+                    transition: .1s;
+            }
+            .hover:hover {
+                    transform: scale(1.10);
+                    color: white;
+            }
+            .highlight:hover {
+                color: royalblue;
+            }
+            @media (min-width: 992px) {
+                .dropdown:hover .dropdown-menu {
+                    display: block;
+                }
+            }
+            .btn-color {
+                background-color: lightskyblue !important;
+                color: white !important;
+            }
+            .btn-color1 {
+                background-color: royalblue !important;
+                border-color: royalblue !important;
+                color: white !important;
+            }
+            .btn-facebook {
+                background-color: rgb(59, 89, 152) !important;
+                border: none;
+                color: white !important;
+            }
+            .btn-twitter {
+                background-color: rgb(8, 160, 233) !important;
+                border: none;
+                color: white !important;
+            }
+            .btn-linkedin {
+                background-color: rgb(0, 119, 181) !important;
+                border: none;
+                color: white !important;
+            }
+            .btn-instagram {
+                background-image: linear-gradient(to bottom left, royalblue, red, yellow);
+                border: none;
+                color: white !important;
+            }
+            .btn-email {
+                background-color: royalblue !important;
+                border-color: royalblue !important;
+                color: white !important;
+            }
+            .header .navbar.navbar-fixed .navbar-nav > li.active a {
+                color: royalblue !important;
+            }
+            .header .navbar .navbar-nav > li.active > a, .header .navbar .navbar-nav > li > .header .navbar .navbar-nav > li > a:hover {
+                color: royalblue !important;
+            }
+            .features .feature-panel .feature-icon {
+                color: lightskyblue !important;
+            }
+            .pricing-link {
+                background-color: lightskyblue !important;
+                font-size: 20px;
+            }
+            .heading .heading-title span {
+                color: lightskyblue !important;
+            }
+            .footer .footer-widgets-container .footer-widget .footer-social li a {
+                color: lightskyblue !important;
+            }
+            .nav-link:hover {
+                color: royalblue !important;
+            }
+            .btn-video i {
+                color: lightskyblue !important;
+                font-size: 64px;
+                position: relative;
+                left: 3px;
+                top: -5px;
+            }
+            .services .service-card .service-list li span {
+                color: lightskyblue !important;
+                position: relative;
+                top: -5px;
+            }
+            .logo {
+                height: 75px;
+            }
+            .header .navbar .navbar-nav > li.active > a, .header .navbar .navbar-nav > li > a:focus {
+                color: black;
+            }
+            .navbar {
+                background-color: white;
+            }
+            ::selection {
+                background: royalblue; /* WebKit/Blink Browsers */
+            }
+            ::-moz-selection {
+                background: royalblue; /* Gecko Browsers */
+            }
+            .hero {
+                
+            }
+            .hero-bio {
+                color: white !important;
+            }
+            .hero-headline {
+                color: white !important;
+            }
+            .pricing {
+                background-color: lightskyblue;
+            }
+            .pricing-panel {
+                box-shadow: 0px 30px 50px 0 rgba(135, 206, 250, 0.226) !important;
+            }
+            .navbar .navbar-toggler .navbar-toggler-icon::before, .navbar .navbar-toggler .navbar-toggler-icon::after, .navbar.navbar-fixed .navbar-toggler .navbar-toggler-icon {
+                background-color: royalblue !important;
+            }
+            .navbar.navbar-fixed .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+                background-color: transparent !important;
+            }
+            .navbar .navbar-toggler .navbar-toggler-icon {
+                background-color: royalblue;
+            }
+            .nav-link:hover {
+                background-color: transparent !important;
+            }
+            .footer .footer-copyright a {
+                color: royalblue;
+            }
+            .btn-circle { 
+                color: white !important;
+                width: 50px !important; 
+                height: 50px !important; 
+                padding: 7px 10px !important; 
+                border-radius: 25px !important; 
+                font-size: 25px !important; 
+                text-align: center !important; 
+                line-height: 30px !important;
+            }
+            .side-list {
+                padding-left: 0px;
+            }
+            .side-list li{
+                text-align: center;
+                display: block;
+                margin: 5px;
+            }
+            .horizontal-list {
+                padding-left: 0;
+                margin: auto;
+            }
+            .horizontal-list li{
+                text-align: center;
+                display: inline-block;
+                margin: 5px;
+            }
+            .title h1, .title h6{
+                color: royalblue;
+            }
+            .blog-body, .blog-body p, .blog-body ul, .blog-body li, .blog-body hr{
+                color: grey;
+                font-size: 20px;
+            }
+            .blog-body h4 {
+                font-size: 32px;
+                color:  grey;
+            }
+            .blog-body h3 {
+                font-size: 32px;
+                color: lightskyblue;
+            }
+            .blog-body h2 {
+                font-size: 32px;
+                color: royalblue;
+            }
+            .blog-body img {
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                min-width: 100px;
+                min-height: 100px;
+                max-height: 50vw;
+                max-width: 50vw;
+                width: auto;
+                height: 400px;
+            }
+            .blog-body img.full-width {
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+            .blog-body img.left {
+                margin-left: 0;
+                margin-right: auto;
+                display: block;
+            }
+            .blog-body img.right {
+                margin-left: auto;
+                margin-right: 0;
+                display: block;
+            }
+            .form-control {
+                text-transform: none;
+                line-height: 1.5;
+                border: 1px solid;
+                padding: .375rem .75rem;
+                font-size: 20px;
+                margin: 0 0 0 0;
+            }
+            .form-control:focus {
+                border: 1px solid lightskyblue !important;
+            }
+            .form-control:invalid {
+                border: 1px solid red;
+            }
+            textarea.form-control {
+                resize: vertical;
+                height: 150px;
+                max-height: 250px;
+            }
+            .comment-name {
+                font-size: 32px;
+                color: royalblue;
+                margin: 0 0 0 0;
+            }
+            .comment-email {
+                font-size: 24px;
+                color: royalblue;
+                margin: 0 0 0 0;
+            }
+            .comment-comment {
+                color: grey;
+                font-size: 20px;
+            }
+            .popup-contact-form {
+                padding: 10px;
+            }
+            .popup-contact-form textarea.form-control {
+                height: 100px;
+                max-height: 250px;
+            }
+            .btn-arr-icon::before {
+                line-height: 1.2;
+            }
+            .pricing-btn {
+                position: absolute;
+                top: -52px;
+                left: -25px;
+            }
+            .pricing-desc {
+                margin-bottom: 0;
+                padding-bottom: 50px;
+            }
+            .pricing-img {
+                overflow: hidden;
+            }
+            .header .navbar .navbar-nav > li.active {
+                background-color: transparent !important;
+            }
+            .test-blockquote {
+                border-width: 5px;
+                border-style: solid;
+                border-color: lightskyblue;
+                border-radius: 10px;
+                max-width: 750px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .test-blockquote p {
+                font-size: 24px;
+                margin-bottom: 0;
+            }
+            .test-credit p {
+                font-size: 20px;
+                margin-bottom: 0;
+            }
+            .test-credit {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+            .carousel-indicators {
+                position: relative;
+            }
+            .carousel-indicators li{
+                background-color: lightskyblue;
+            }
+            .carousel-control-next , .carousel-control-prev {
+                color: lightskyblue;
+                font-size: 32px;
+            }
+            .carousel-control-next:hover , .carousel-control-prev:hover {
+                color: lightskyblue;
+            }
+            .carousel-control-next:focus , .carousel-control-prev:focus {
+                color: lightskyblue;
+                outline: royalblue;
+            }
+            .point1 {
+                position: relative;   
+                width: 0;
+                height: 0;
+                margin: auto;
+            }
+            .point2 {
+                font-size: 60px !important;
+                position: absolute;
+                color: lightskyblue;
+                top: -15px;
+                left: -30px;
+            }
+            .feature-icon {
+                height: min-content;
+            }
+            .alert-error {
+                background-color: #FFCCCC;
+                color: black;
+            }
+            .feed-image {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+
+    <body class="body-scroll {% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDF43VH" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+
+        {% if messages %}
+            <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="MessageModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </div>                
+        {% endif %}
+
+        <div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="contactUsModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="popup-contact-form">
+                            <div class="heading heading-5">
+                                <div class="heading-title">start your free trial</div>
+                                <div class="heading-desc">Supporting call-to-actiongoes here</div>
+                            </div>
+                            <div class="contact-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row text-left">
+                                        {{ contactform.non_field_errors }}
+                                        <div class="form-group col-12">
+                                            {{ contactform.first_name.errors }}
+                                            <label>First Name:</label>
+                                            <input 
+                                                class="form-control" 
+                                                type="{{ contactform.first_name.field.widget.input_type }}" 
+                                                name="{{ contactform.first_name.name }}" 
+                                                id="id_{{ contactform.first_name.name }}" 
+                                                value="{{ contactform.first_name.value|default:'' }}"
+                                                placeholder="First Name"
+                                                >
+                                            </input>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            {{ contactform.last_name.errors }}
+                                            <label>Last Name:</label>
+                                            <input 
+                                                class="form-control" 
+                                                type="{{ contactform.last_name.field.widget.input_type }}" 
+                                                name="{{ contactform.last_name.name }}" 
+                                                id="id_{{ contactform.last_name.name }}" 
+                                                value="{{ contactform.last_name.value|default:'' }}"
+                                                placeholder="Last Name"
+                                                >
+                                            </input>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            {{ contactform.email.errors }}
+                                            <label>Email:</label>
+                                            <input 
+                                                class="form-control" 
+                                                type="email" 
+                                                name="{{ contactform.email.name }}" 
+                                                id="id_{{ contactform.email.name }}" 
+                                                value="{{ contactform.email.value|default:'' }}"
+                                                placeholder="ex@mple.com"
+                                                >
+                                            </input>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            {{ contactform.message.errors }}
+                                            <label>Message:</label>
+                                            <textarea 
+                                                class="form-control" 
+                                                type="{{ contactform.message.field.widget.input_type }}" 
+                                                name="{{ contactform.message.name }}" 
+                                                id="id_{{ contactform.message.name }}" 
+                                                value="{{ contactform.message.value|default:'' }}"
+                                                placeholder="We'd love to hear your story!"
+                                                ></textarea>
+                                        </div>
+                                        <div class="form-group col-12 text-center">
+                                            <input class="btn btn-color1 hover" type="submit" name="contact_submit" value="Submit">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper clearfix" id="wrapper">
+            {% block content %}{% endblock %}
+            <footer class="footer" id="footer">
+                <div class="footer-widgets-container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <ul class="horizontal-list">
+                                    <li> <a class="btn btn-facebook btn-circle hover" href="{{ facebook_link }}"><i class="bi bi-facebook"></i></a></li>
+                                    <li> <a class="btn btn-twitter btn-circle hover" href="{{ twitter_link }}"><i class="bi bi-twitter"></i></a></li>
+                                    <li> <a class="btn btn-linkedin btn-circle hover" href="{{ linkedin_link }}"><i class="bi bi-linkedin"></i></a></li>
+                                    <li> <a class="btn btn-email btn-circle hover" href="{{ email_link }}"><i class="bi bi-envelope"></i></a></li>
+                                    <li> <a class="btn btn-instagram btn-circle hover" href="{{ instagram_link }}"><i class="bi bi-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
+
+        {% block extra_js %}
+            <script data-cfasync="false" src="{% static 'assets/js/email-decode.min.js' %}"></script><script src="{% static 'assets/js/vendor/jquery-3.4.1.min.js' %}"></script>
+            <script src="{% static 'assets/js/vendor.js' %}"></script>
+            <script src="{% static 'assets/js/functions.js' %}"></script>  
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#MessageModal').modal('show');
+                });
+            </script>            
+        {% endblock %}
+    </body>
+</html>
